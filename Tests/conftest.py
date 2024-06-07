@@ -3,7 +3,7 @@ from selenium import webdriver
 from Utility import utility_file
 
 @pytest.fixture()
-def setup_and_teardown(request):
+def test_setup_and_setdown(request):
     browser = utility_file.get_config("basic info", "browser")
     if browser == "chrome":
         driver = webdriver.Chrome()

@@ -1,7 +1,7 @@
 import pytest
 from Pages.Jewelry_page import Jewelry
 
-@pytest.mark.usefixtures("setup_and_teardown")
+@pytest.mark.usefixtures("test_setup_and_setdown")
 class Test_Jewelry:
     def test_jewelry_products(self):
         product = Jewelry(self.driver)

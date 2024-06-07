@@ -1,9 +1,9 @@
 from selenium.webdriver.common.by import By
-from Pages.BasePage import Basepage
+from Pages.BasePage import BasePage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-class Jewelry(Basepage):
+class Jewelry(BasePage):
     click_jewelrys = (By.XPATH, "(//a[@href='/jewelry'])[1]")
     click_jewelry_element1 = (By.XPATH, "//a[text()='Create Your Own Jewelry']")
     click_jewelry_element2 = (By.XPATH, "//a[text()='Black & White Diamond Heart']")
