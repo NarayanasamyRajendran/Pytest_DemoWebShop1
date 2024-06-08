@@ -29,6 +29,24 @@ class PersonalInformation(BasePage):
     address_save_path = (By.XPATH, "//input[@class='button-1 save-address-button']")
     address_success_message_path = (By.XPATH, "//div[@class='page-title']/h1")
 
+    orders_path = (By.XPATH, "//a[@href='/customer/orders'][@class='inactive']")
+    success_message_noOrder = (By.XPATH, "//div[@class='order-list']")
+    download_path = (By.XPATH, "//a[text()='Downloadable products']")
+    success_message_noDownload = (By.XPATH, "//div[@class='no-data']")
+
+    sub_path = (By.XPATH, "//a[text()='Back in stock subscriptions']")
+    success_message_nosub = (By.XPATH, "//div[@class='no-data']")
+
+    reward_path = (By.XPATH, "//a[text()='Reward points']")
+    success_message_noReward = (By.XPATH, "//div[@class='current-balance']")
+
+    changePass_path = (By.XPATH, "//a[text()='Change password']")
+    oldpass_path = (By.XPATH, "//input[@id='OldPassword']")
+    newpass_path = (By.XPATH, "//input[@id='NewPassword']")
+    connewpass_path = (By.XPATH, "//input[@id='ConfirmNewPassword']")
+    submit_changepass_path = (By.XPATH, "//input[@class='button-1 change-password-button']")
+    success_message_changepass = (By.XPATH, "//div[@class='result']")
+
     def __init__(self, driver, utility_file):
         super().__init__(driver)
         self.utility_file = utility_file
@@ -133,3 +151,72 @@ class PersonalInformation(BasePage):
         address_success_message_element = WebDriverWait(self._driver, 10).until(EC.visibility_of_element_located(self.address_success_message_path))
         address_success_message_text = address_success_message_element.text.strip()
         assert address_success_message_text == expected_result
+
+    def click_orders_button(self):
+        orders = self.find(self.orders_path)
+        self.for_click(orders)
+
+    def assert_NoOrders(self):
+        expected_result = "No orders"
+        success_noOrder_message_element = WebDriverWait(self._driver, 10).until(EC.visibility_of_element_located(self.success_message_noOrder))
+        success_noOrder_message_text = success_noOrder_message_element.text.strip()
+        assert success_noOrder_message_text == expected_result
+
+    def click_download(self):
+        download = self.find(self.download_path)
+        self.for_click(download)
+
+    def assert_NoDownload(self):
+        expected_result = "There are no downloadable products"
+        success_noDownload_message_element = WebDriverWait(self._driver, 10).until(EC.visibility_of_element_located(self.success_message_noDownload))
+        success_noDownload_message_text = success_noDownload_message_element.text.strip()
+        assert success_noDownload_message_text == expected_result
+
+    def click_sub(self):
+        sub = self.find(self.sub_path)
+        self.for_click(sub)
+
+    def assert_NoSub(self):
+        expected_result = "You are not currently subscribed to any Back In Stock notification lists"
+        success_nosub_message_element = WebDriverWait(self._driver, 10).until(EC.visibility_of_element_located(self.success_message_nosub))
+        success_nosub_message_text = success_nosub_message_element.text.strip()
+        assert success_nosub_message_text == expected_result
+
+    def click_reward(self):
+        reward = self.find(self.reward_path)
+        self.for_click(reward)
+
+    def assert_Noreward(self):
+        expected_result = "Your current balance is 0 reward points (0.00)."
+        success_norewards_message_element = WebDriverWait(self._driver, 10).until(EC.visibility_of_element_located(self.success_message_noReward))
+        success_norewards_message_text = success_norewards_message_element.text.strip()
+        assert success_norewards_message_text == expected_result
+
+    def click_changepass(self):
+        change_pass = self.find(self.changePass_path)
+        self.for_click(change_pass)
+
+    def enter_old_pass(self):
+        enter_old = self.utility_file.get_config("customer password information", "old_password")
+        old1 = self.find(self.oldpass_path)
+        self.for_send_keys(old1, enter_old)
+
+    def enter_new_pass(self):
+        enter_new = self.utility_file.get_config("customer password information", "new_password")
+        new1 = self.find(self.newpass_path)
+        self.for_send_keys(new1, enter_new)
+
+    def enter_con_new_pass(self):
+        enter_confirm = self.utility_file.get_config("customer password information", "confirm_new_password")
+        confirm1 = self.find(self.connewpass_path)
+        self.for_send_keys(confirm1, enter_confirm)
+
+    def click_submit_password(self):
+        submit_changepass = self.find(self.submit_changepass_path)
+        self.for_click(submit_changepass)
+
+    def assert_password_change(self):
+        expected_result = "Password was changed"
+        success_changepass_message_element = WebDriverWait(self._driver, 10).until(EC.visibility_of_element_located(self.success_message_changepass))
+        success_changepass_message_text = success_changepass_message_element.text.strip()
+        assert success_changepass_message_text == expected_result

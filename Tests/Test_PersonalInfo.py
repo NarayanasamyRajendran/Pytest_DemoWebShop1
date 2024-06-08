@@ -33,3 +33,37 @@ class Test_PersonalInfo:
         information2.enter_phoneNumber()
         information2.save_address()
         #information2.assert_address_saved()
+
+    def test_customer_orders(self):
+        information3 = PersonalInformation(self.driver, utility_file)
+        information3.fill_login_form()
+        information3.click_orders_button()
+        information3.assert_NoOrders()
+
+    def test_customer_download(self):
+        information4 = PersonalInformation(self.driver, utility_file)
+        information4.fill_login_form()
+        information4.click_download()
+        information4.assert_NoDownload()
+
+    def test_customer_sub(self):
+        information5 = PersonalInformation(self.driver, utility_file)
+        information5.fill_login_form()
+        information5.click_sub()
+        information5.assert_NoSub()
+
+    def test_customer_reward(self):
+        information6 = PersonalInformation(self.driver, utility_file)
+        information6.fill_login_form()
+        information6.click_reward()
+        information6.assert_Noreward()
+
+    def test_customer_changepass(self):
+        information7 = PersonalInformation(self.driver, utility_file)
+        information7.fill_login_form()
+        information7.click_changepass()
+        information7.enter_old_pass()
+        information7.enter_new_pass()
+        information7.enter_con_new_pass()
+        information7.click_submit_password()
+        information7.assert_password_change()
