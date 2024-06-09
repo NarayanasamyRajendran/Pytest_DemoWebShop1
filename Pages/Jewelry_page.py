@@ -17,6 +17,15 @@ class Jewelry(BasePage):
     select_sortBy_element = (By.XPATH, "//option[text()='Name: A to Z']")
     click_display_element = (By.XPATH, "//select[@id='products-pagesize']")
     select_display_element = (By.XPATH, "//option[text()='8']")
+
+    click_view_element = (By.XPATH, "//select[@id='products-viewmode']")
+    select_view_element = (By.XPATH, "//option[text()='List']")
+
+    click_first_element = (By.XPATH, "//a[contains(@href, 'price=0-500')]")
+    first_price_list = (By.XPATH, "//span[@class='price actual-price']")
+
+    click_second_element = (By.XPATH, "//a[contains(@href, 'price=500-700')]")
+    second_price_list = (By.XPATH, "//span[@class='price actual-price']")
     
     def __init__(self, driver):
         super().__init__(driver)
@@ -91,3 +100,35 @@ class Jewelry(BasePage):
     def select_display(self):
         select_Display = self.find(self.select_display_element)
         self.for_click(select_Display)
+
+    def click_ViewAs(self):
+        click_view = self.find(self.click_view_element)
+        self.for_click(click_view)
+
+    def select_ViewAs(self):
+        select_view = self.find(self.select_view_element)
+        self.for_click(select_view)
+
+    def click_first_price(self):
+        click_first_price_option = self.find(self.click_first_element)
+        self.for_click(click_first_price_option)
+
+    def assert_price_0_500(self):
+        price_elements = self.find_all(self.first_price_list)
+        for price_element in price_elements:
+            price_text = price_element.text.strip()
+            # Assuming price is prefixed with a currency symbol
+            price_value = float(price_text.replace('$', ''))
+            assert price_value <= 500, f"Price {price_value} is greater than 500"
+    
+    def click_second_price(self):
+        click_second_price_option = self.find(self.click_second_element)
+        self.for_click(click_second_price_option)
+    
+    def assert_price_500_700(self):
+        price_elements = self.find_all(self.second_price_list)
+        for price_element in price_elements:
+            price_text = price_element.text.strip()
+            # Assuming price is prefixed with a currency symbol
+            price_value = float(price_text.replace('$', ''))
+            assert 500 <= price_value <= 700, f"Price {price_value} is not in the range 500 to 700"

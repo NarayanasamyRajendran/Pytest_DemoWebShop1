@@ -65,3 +65,27 @@ class Test_Jewelry:
         product7.select_display()
         product7.clickJewelry_second_product()
         product7.assert_visible_second_product()
+
+    def test_jewelry_filterAll1(self):
+        product7 = Jewelry(self.driver)
+        product7.clickJewelry()
+        product7.click_sortBy()
+        product7.select_sortBy()
+        product7.click_display()
+        product7.select_display()
+        product7.click_ViewAs()
+        product7.select_ViewAs()
+        product7.click_first_price()
+        product7.assert_price_0_500()
+
+    def test_jewelry_filterAll2(self):
+        product7 = Jewelry(self.driver)
+        product7.clickJewelry()
+        product7.click_sortBy()
+        product7.select_sortBy()
+        product7.click_display()
+        product7.select_display()
+        product7.click_ViewAs()
+        product7.select_ViewAs()
+        product7.click_second_price()
+        #product7.assert_price_500_700()
