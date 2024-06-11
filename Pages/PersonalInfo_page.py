@@ -159,8 +159,9 @@ class PersonalInformation(BasePage):
     def assert_NoOrders(self):
         expected_result = "No orders"
         success_noOrder_message_element = WebDriverWait(self._driver, 10).until(EC.visibility_of_element_located(self.success_message_noOrder))
-        success_noOrder_message_text = self._driver.execute_script("return arguments[0]", success_noOrder_message_element)
+        success_noOrder_message_text = success_noOrder_message_element.text.strip()
         assert success_noOrder_message_text == expected_result
+
 
     def click_download(self):
         download = self.find(self.download_path)
@@ -171,6 +172,7 @@ class PersonalInformation(BasePage):
         success_noDownload_message_element = WebDriverWait(self._driver, 10).until(EC.visibility_of_element_located(self.success_message_noDownload))
         success_noDownload_message_text = success_noDownload_message_element.text.strip()
         assert success_noDownload_message_text == expected_result
+
 
     def click_sub(self):
         sub = self.find(self.sub_path)
