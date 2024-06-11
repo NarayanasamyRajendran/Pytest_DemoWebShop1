@@ -82,8 +82,10 @@ class Jewelry(BasePage):
 
     def assert_wishlist_empty(self):
         expected_result2 = "The wishlist is empty!"
-        wishlist_message_text = self.find(self.wishlist_message).text.strip()
+        wishlist_message_element = self.find(self.wishlist_message)
+        wishlist_message_text = self._driver.execute_script("return arguments[0].textContent.trim();", wishlist_message_element)
         assert wishlist_message_text == expected_result2
+
 
     def click_sortBy(self):
         click_sortby = self.find(self.click_sortBy_element)
